@@ -1,0 +1,70 @@
+Documentación de bajo presupuesto de la API: 
+
+#ADMIN
+
+URL : https://consejo.herokuapp.com/admin/
+METHOD : GET POST
+DESCRIPTION : Contiene el login para que superusuarios administren la app
+
+#API CONSEJO
+
+URL : https://consejo.herokuapp.com/api/consejo/<int:pk>
+METHOD : GET PUT PATCH DELETE
+DESCRIPTION : Permite obtener, actualizar o eliminar un recurso dado su ID por parámetros
+
+URL : https://consejo.herokuapp.com/api/consejo/
+METHOD : GET POST
+DESCRIPTION : Permite obtener o guardar todos los recursos solicitados
+
+#API CONSEJEROS
+
+URL : https://consejo.herokuapp.com/api/consejero/<int:pk>
+METHOD : GET PUT PATCH DELETE
+DESCRIPTION : Permite obtener, actualizar o eliminar un recurso dado su ID por parámetros
+
+URL : https://consejo.herokuapp.com/api/consejero/
+METHOD : GET POST
+DESCRIPTION : Permite obtener o guardar todos los recursos solicitados
+
+#API PUNTO
+
+URL : https://consejo.herokuapp.com/api/punto/<int:pk>
+METHOD : GET PUT PATCH DELETE
+DESCRIPTION : Permite obtener, actualizar o eliminar un recurso dado su ID por parámetros
+
+URL : https://consejo.herokuapp.com/api/punto/
+METHOD : GET POST
+DESCRIPTION : Permite obtener o guardar todos los recursos solicitados
+
+#API DOCUMENTO
+
+URL : https://consejo.herokuapp.com/api/documento/<int:pk>
+METHOD : GET PUT PATCH DELETE
+DESCRIPTION : Permite obtener, actualizar o eliminar un recurso dado su ID por parámetros
+
+URL : https://consejo.herokuapp.com/api/documento/
+METHOD : GET POST
+DESCRIPTION : Permite obtener o guardar todos los recursos solicitados
+
+#API INSTRUCCIONES
+
+URL : https://consejo.herokuapp.com/api/instrucciones/<int:pk>
+METHOD : GET PUT PATCH DELETE
+DESCRIPTION : Permite obtener, actualizar o eliminar un recurso dado su ID por parámetros
+
+URL : https://consejo.herokuapp.com/api/instrucciones/
+METHOD : GET POST
+DESCRIPTION : Permite obtener o guardar todos los recursos solicitados 
+
+#API USERS
+
+URL : https://consejo.herokuapp.com/api/user/register/
+METHOD : POST
+DESCRIPTION : Recibe los datos en formato JSON para registrar un nuevo usuario ªªªªªª
+
+
+#API TOKEN JWT
+
+https://consejo.herokuapp.com/api/token/   ªªªª
+ 
+https://consejo.herokuapp.com/api/token/refresh ªªªªª
