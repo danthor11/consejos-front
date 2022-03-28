@@ -26,6 +26,7 @@ export const getConsejos = () => {
 
 
 export const getConsejoById = (id) =>{
+    if(id===undefined) return Promise.reject({message:"'id' is empty"})
     return fetch(`${URL}/consejo/${id}`)
 }
 
@@ -64,4 +65,30 @@ export const createConsejero = data => {
 
 export const getConsejero = () => {
     return fetch(`${URL}/consejero/`)
+}
+
+export const searchPuntosByWord = async (word) => {
+    const newWord = word.toLocaleLowerCase()
+    try {
+        const res = await getPuntos()
+        const data = await res.json()
+
+        if(!res.ok) throw {status:res.status,statusText:res.statusText}
+
+
+        const filterResults = data.filter(punto => 
+            (punto.enunciate.toLocaleLowerCase().includes(newWord) || punto.accordance.toLocaleLowerCase().includes(newWord)
+        )) 
+        return filterResults
+    } catch (err) {
+        console.log(err)
+        return []
+    }
+
+}
+
+
+
+export const getUserById = (id) => {
+    return fetch(`${URL}/user/${id}`)
 }

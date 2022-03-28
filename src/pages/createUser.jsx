@@ -1,12 +1,11 @@
 
 import React , {useState}from "react";
-import { CreateUserSuccessfullyMessage } from "../components/createUserSuccessfully";
+import { CreateUserSuccessfullyMessage } from "../components/UserSuccessfully";
 import { MessageError } from "../components/messageError";
 import { createNewUser } from "../services/login-services";
 
 
 export const CreateUser = () => {
-
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -50,7 +49,7 @@ export const CreateUser = () => {
            
            {isUserCreated
                ? <CreateUserSuccessfullyMessage/>
-               : (<div className="flex h-96 flex-col pt-6 px-4 sm:w-6/12 m-auto">    
+               : (<div className="flex h-auto my-5 flex-col pt-6 px-4 sm:w-6/12 my-4 mx-auto">    
                <img 
                    src="src/assets/logo.png" 
                    alt="logo-uneg" 

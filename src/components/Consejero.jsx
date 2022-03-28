@@ -80,7 +80,7 @@ export const Consejero = () => {
         <div className="flex h-96 flex-col pt-6 px-4 sm:w-6/12 m-auto min-h-screen">
             <div className="bg-slate-100 rounded-lg shadow-lg ">
                 <h2
-                    className="text-slate-200  
+                    className="text-slate-800  
                         text-5xl 
                         text-center
                         py-4 
@@ -89,7 +89,7 @@ export const Consejero = () => {
                         shadow-sm
                         "
                 >
-                Crear un consejo
+                    Añadir Consejero
                 </h2>
                 <form className="p-8 " onSubmit={handleSubmit}>
                     <div className="mb-6">

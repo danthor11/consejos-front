@@ -1,8 +1,11 @@
 import React,{useState} from "react"
 import { login,saveToken } from "../services/login-services";
 import { MessageError } from "../components/messageError";
+import { Link,useNavigate } from "react-router-dom";
+
 
 export const Login = (props) => {
+    const navigate = useNavigate()
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -18,10 +21,13 @@ export const Login = (props) => {
             })
             .then(json => {
                 saveToken(json,email)
-                console.log("sd")
-                props.setIsLogged(true)
-                console.log("sd")
-
+                
+                setEmail("")
+                setPassword("")
+                setTimeout(()=>{
+                    navigate("/")
+                    location.reload()
+                },500 )
             })
             .catch(err=>{
                 setError(err)
@@ -29,14 +35,12 @@ export const Login = (props) => {
                     setError(null)
                 },3000)
             })
-        setEmail("")
-        setPassword("")
     }
 
 
     return(
         <div >
-           <div className="flex h-96 flex-col pt-6 px-4 m-auto sm:w-6/12">    
+           <div className="flex h-auto flex-col pt-6 px-4 my-4 mx-auto sm:w-6/12">    
                 <img 
                     src="src/assets/logo.png" 
                     alt="logo-uneg" 
@@ -93,9 +97,9 @@ export const Login = (props) => {
                             <p>
                                 No estas registrado? 
                                 <span className="mx-2">
-                                    <a href="#" className="text-blue-600 underline">
+                                    <Link to="/sing-up" className="text-blue-600 underline">
                                         Registrate aquí
-                                    </a>
+                                    </Link>
                                     .
                                 </span>
                                 

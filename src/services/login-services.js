@@ -27,7 +27,8 @@ export const createNewUser = async (data) => {
 }
 
 
-export const saveToken = (tokens,email) => {
+export const saveToken =  (tokens,email) => {
+
     const dataToSave= {
         token:tokens.access,
         refresh:tokens.refresh,
@@ -41,9 +42,15 @@ export const loadToken = ()=>{
 }
 
 export const isUserLogged = ()=>{
-    return JSON.parse(localStorage.getItem("token-uneg"))!==null ? true : false
+    const user = JSON.parse(localStorage.getItem("token-uneg"))
+    console.log(user)
+    return user ? true :false
 }
 
 export const logout = () =>{
     localStorage.removeItem("token-uneg")
+}
+
+export const getUserById = (id) => {
+    return fetch(`${URL}/user/${id}`)
 }
