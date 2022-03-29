@@ -1,8 +1,10 @@
 import React, { useState , useEffect} from "react";
 import Select from "react-select";
 import { createConsejero, getAllUsers, getConsejos } from "../services/consejo-service";
+import { ButtonBack } from "./buttonBack";
 import { MessageError } from "./messageError";
 import { SuccessfullyMessage } from "./succesfullyMessage";
+
 
 export const Consejero = () => {
     const [user, setUser] = useState("");
@@ -11,8 +13,10 @@ export const Consejero = () => {
     const [allUsers, setAllUsers] = useState(null);
     const [allConsejos, setAllConsejos] = useState(null);
     const [successfully, setSuccessfully] = useState(false);
+    const [error, setError] = useState(null);
 
     useEffect(()=>{
+        
         Promise.all([
             getConsejos(),
             getAllUsers()
@@ -28,6 +32,7 @@ export const Consejero = () => {
                     value: consejo.id
                 }))
                 
+
 
                 setAllConsejos(options)
                 setAllUsers(json[1])
@@ -51,17 +56,18 @@ export const Consejero = () => {
         createConsejero(data)
             .then(data => {
                 console.log(data)
-                if(data.ok) throw {status:data.status, statusText: data.statusText || "Ocurrio un error"}
-                return data.json()
-            })
-            .then(json => {
+                if(!data.ok) throw {status:data.status, statusText: data.statusText || "Ocurrio un error"}
                 setSuccessfully(true)
                 setTimeout(()=>{
                     setSuccessfully(false)
                 },5000)
-            })
+                return data.json()
+            })  
             .catch(err => {
-                
+                setError(error)
+                setTimeout(()=>{
+                    setError(null)
+                },5000)
             })
 
         setConsejo(null)
@@ -78,6 +84,7 @@ export const Consejero = () => {
 
     return (
         <div className="flex h-96 flex-col pt-6 px-4 sm:w-6/12 m-auto min-h-screen">
+            <ButtonBack custom={"my-4 self-end"} url="/consejero"/>
             <div className="bg-slate-100 rounded-lg shadow-lg ">
                 <h2
                     className="text-slate-800  
@@ -167,6 +174,11 @@ export const Consejero = () => {
                         />
                     </div>
 
+
+                    {error 
+                        ? <MessageError error={`Error al crear elemento`} message={"intente mas tarde."}/>
+                        : ""
+                    }
                     {successfully
                         ? <SuccessfullyMessage  
                             title={"¡El consejero se ha creado satisfactoriamente!"} 

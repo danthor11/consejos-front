@@ -21,7 +21,6 @@ export const Login = (props) => {
             })
             .then(json => {
                 saveToken(json,email)
-                
                 setEmail("")
                 setPassword("")
                 setTimeout(()=>{
@@ -89,13 +88,13 @@ export const Login = (props) => {
                             />
                         </div>
                         { error
-                            ? <MessageError error={`Error ${error.code}`} message={error.error}/>
+                            ? <MessageError error={`Error de autenticacion`} message={error.error}/>
                             : ""
 
                         }
                         <div className="mb-6 text-center">
                             <p>
-                                No estas registrado? 
+                                ¿No estas registrado? 
                                 <span className="mx-2">
                                     <Link to="/sing-up" className="text-blue-600 underline">
                                         Registrate aquí

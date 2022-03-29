@@ -35,6 +35,10 @@ export const getPuntos = () => {
     return fetch(`${URL}/punto/`)
 }
 
+export const getPuntosById = (id) => {
+    return fetch(`${URL}/punto/${id}`)
+}
+
 export const addInstruction = (data) =>{
     return fetch(`${URL}/instrucciones/`,{
         method:"POST",
@@ -45,6 +49,10 @@ export const addInstruction = (data) =>{
     })
 }
 
+
+export const getAllInstrucciones = () => {
+    return fetch(`${URL}/instrucciones/`)
+}
 
 export const getAllUsers = () => {
     return fetch(`${URL}/user/`)
@@ -88,7 +96,39 @@ export const searchPuntosByWord = async (word) => {
 }
 
 
-
 export const getUserById = (id) => {
     return fetch(`${URL}/user/${id}`)
+}
+
+
+export const addNewPunto = (data) => {
+    const {
+        acuerdo,
+        consejero,
+        consejo,
+        decision,
+        description,
+        punto
+    }= data
+
+    const newPunto = {
+        consejos_puntos:Array.from(consejo.map(c => c.value)),
+        id_consejero: Number(consejero),
+        enunciate:description,
+        type:punto,
+        decision,
+        accordance: acuerdo
+    }
+    console.log(newPunto)
+    for (let i in newPunto) {
+        console.log(newPunto[i],typeof newPunto[i])
+    }
+
+    return fetch(`${URL}/punto`,{
+        method:"POST",
+        headers:{
+            "Content-type":"application/json"
+        },
+        body: JSON.stringify(newPunto)
+    })
 }

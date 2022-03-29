@@ -3,16 +3,26 @@ import React, { useState } from "react";
 import { searchPuntosByWord } from "../services/consejo-service";
 import { PuntoDetail } from "./PuntoDetails";
 import { SearchInput } from "./searchInput";
-
+import { Loader } from "./loader";
 
 export const SearchPunto = () => {
     const [search, setSearch] = useState("");
     const [searchResults, setSearchResults] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = (e) =>{
         e.preventDefault()
+        setIsLoading(true)
         searchPuntosByWord(search)
-            .then(res => setSearchResults(res))
+            .then(res => {
+                setSearchResults(res)
+                setIsLoading(false)
+            })
+            .catch(err => {
+                console.log(err)
+                setIsLoading(false)
+            })
+            
     }
 
     return(
@@ -22,11 +32,16 @@ export const SearchPunto = () => {
                 <SearchInput value={search} onChange={(e)=>setSearch(e.target.value)} />
             </form>
 
-            {searchResults
-                ?(
-                    searchResults.map(el => <PuntoDetail key={el.name} {...el}/>)
-                )
-                : ""
+            {!isLoading
+                ? (searchResults
+                    ?(
+                        searchResults.map(el => <PuntoDetail key={el.name} {...el}/>)
+                    )
+                    : "")
+                : <Loader/>
+                
+            }
+            {
 
             }
         </div>

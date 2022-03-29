@@ -2,6 +2,7 @@ import React, { useState} from "react"
 import { createConsejo } from "../services/consejo-service";
 import { SuccessfullyMessage } from "./succesfullyMessage";
 import {MessageError} from "./messageError"
+import { ButtonBack } from "./buttonBack";
 
 
 export const CreateNewConsejo = () => {
@@ -36,7 +37,9 @@ export const CreateNewConsejo = () => {
     }
 
     return(
-        <div className="flex min-h-screen  flex-col pt-6 px-4 sm:w-6/12 m-auto">       
+        <div className="flex min-h-screen  flex-col pt-6 px-4 sm:w-6/12 m-auto">
+            <ButtonBack custom="self-end my-4" url="/consejos"/>
+
             <div className="bg-slate-100 rounded-lg shadow-lg ">
                 <h2 className="
                     text-slate-800  

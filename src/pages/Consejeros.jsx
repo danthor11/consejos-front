@@ -2,14 +2,23 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ConsejeroDetail } from "../components/consejeroDetail";
 import { getConsejero } from "../services/consejo-service";
+import { Loader } from "../components/loader";
 
 const Consejeros = () => {
     const [consejeros, setConsejeros] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
+        setIsLoading(true)
         getConsejero()
             .then(res => res.json())
-            .then(data => setConsejeros(data))
+            .then(data => {
+                setIsLoading(false)
+                setConsejeros(data)
+            })
+            .catch(err=>{
+                console.log(err)
+            })
     }, []);
 
     return(
@@ -27,10 +36,13 @@ const Consejeros = () => {
                     Añadir
                 </Link>
                 
-                {consejeros && (
-                    consejeros.map(consejero => <ConsejeroDetail {...consejero} key={consejero.id}/>)
-                )
+                {!isLoading
+                    ? consejeros ? (
+                        consejeros.map(consejero => <ConsejeroDetail {...consejero} key={consejero.id}/>))
+                        :""
+                    : <Loader/>
                 }
+                
             </div>
         </div>
     )

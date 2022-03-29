@@ -1,11 +1,12 @@
 import React , {useState,useEffect} from "react"
 import Select from "react-select"
-import { getAllUsers, getConsejero, getConsejos } from "../services/consejo-service"
+import { addNewPunto, getConsejero, getConsejos } from "../services/consejo-service"
+import { getUserById } from "../services/login-services"
+import { ButtonBack } from "./buttonBack"
 
 const req=[
     getConsejos(),
-    getConsejero(),
-    getAllUsers()
+    getConsejero()
 ]
 
 export const Punto = () =>{
@@ -13,37 +14,73 @@ export const Punto = () =>{
     const [allConsejos, setAllConsejos] = useState(null);
     const [allConsejeros, setAllConsejeros] = useState(null);
     
-    useEffect(()=>{
-        Promise.all(req)
-        .then(data => {
-            console.log(data)
-            return Promise.all(data.map(d => d.json()))
-        })
-        .then(json => {
-            const options = json[0].map(consejo => ({
+    const [consejo, setConsejo] = useState(null);
+    const [consejero, setConsejero] = useState("");
+
+    const [description, setDescription] = useState("")
+
+    const [punto, setPunto] = useState("");
+    const [decision, setDecision] = useState("");
+    const [acuerdo, setAcuerdo] = useState("");
+
+
+    
+    useEffect( async () => {
+        try {
+            const [res1,res2] = await Promise.all(req)
+           
+            const data = [await res1.clone().json(),await res2.clone().json()]
+            
+            if(!res1.ok && !res2.ok) throw {status:res.status}
+            
+            const options = data[0].map(consejo => ({
                 label:`${consejo.name} - ${consejo.type} `, 
                 value: consejo.id
             }))
 
-            setAllConsejos(options)
-            setAllConsejeros(json[1])
-        })
-        .catch(err=>{
-            console.log({err})
-        })
+            try {
+                const resConsejos = await Promise.all(data[1].map(async consejero => await getUserById(consejero.user)))
+                const dataConsejos = await Promise.all(resConsejos.map(el=> el.clone().json()))
+                console.log(dataConsejos,resConsejos)
+                
+                setAllConsejos(options)
+                setAllConsejeros(dataConsejos)
+            } catch (err) {
+                console.log({err})
+            }
 
+        } catch (err) {
+            console.log({err})
+        }
+        
+        return () =>{
+            
+        }
     },[])
+
+    const handleChange = value => {
+        setConsejo(value)
+    }
+
 
     const handleSubmit = (e)=>{
         e.preventDefault()
+        addNewPunto({consejo,consejero,description,punto,decision,acuerdo})
+            .then(res =>{
+                console.log(res) 
+                return res.json()})
+            .then(data => console.log(data))
+            .catch(err => console.log({err}))
     }
 
-    console.log(allConsejeros,allConsejos)
+    
     return(
-        <div className="flex  flex-col pt-6 px-4 sm:w-6/12 m-auto min-h-screen h-auto">
+        <div className="flex  flex-col pt-6 px-4 sm:w-9/12 m-auto min-h-screen h-auto mb-4">
+            <ButtonBack custom="my-4 self-end" url="/punto" onClick={()=>console.log("sdad")}/>
+
             <div className="bg-slate-100 rounded-lg shadow-lg ">
                 <h2
-                    className="text-slate-200  
+                    className="text-slate-800  
                         text-5xl 
                         text-center
                         py-4 
@@ -57,7 +94,6 @@ export const Punto = () =>{
                 <form className="p-8 " onSubmit={handleSubmit}>
                     <div className="mb-6">
                         <label
-                            htmlFor="user"
                             className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                         >
                             Consejo
@@ -66,43 +102,31 @@ export const Punto = () =>{
                         { allConsejos
                             ?   <Select
                                     options={allConsejos}
+                                    onChange={handleChange}
+                                    isMulti
                                 />
                             : ""
-                        }
-                        
-
-                       
-                            {/* "bg-gray-50 border 
-                            border-gray-300 
-                            text-gray-900 text-sm rounded-lg 
-                            focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5
-                            dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
-                            dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500
-                            " */}
-                            
-                           
-                    
+                        } 
                     </div>
 
                     <div className="mb-6">
                         <label
-                            htmlFor="consejo"
+                            htmlFor="consejero"
                             className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                         >
-                            Consejero:
+                            Consejero
                         </label>
                         <select
-                            id="consejo"
+                            id="consejero"
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            
+                            onChange={e => setConsejero(e.target.value)}
                             required
                         >
                             {allConsejeros 
                             ?  (
-                                allConsejeros.map(c => <option value={c.id} key={c.id}>{c.name}</option>)
+                                allConsejeros.map(c => <option value={c.id} key={c.id}>{c.user_name}</option>)
                             )
                             : <option value="">Cargando option</option>
-
                             }
                            
                         </select>
@@ -122,7 +146,8 @@ export const Punto = () =>{
                             id="descripcion"
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             required
-                            
+                            value={description}
+                            onChange={e => setDescription(e.target.value)}
                         />
                     </div>
 
@@ -136,7 +161,7 @@ export const Punto = () =>{
                             id="type-punto"  
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                             required
-                            
+                            onChange={e => setPunto(e.target.value)}
                         >
                             <option value="">Elegir una opcion</option>
                             <option value="D">Decision</option>
@@ -153,7 +178,7 @@ export const Punto = () =>{
                             id="decision"  
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                             required
-                            
+                            onChange={e => setDecision(e.target.value)}
                         >
                             <option value="">Elegir una opcion</option>
                             <option value="D">Diferido</option>
@@ -187,10 +212,10 @@ export const Punto = () =>{
                             id="acuerdo"
                             rows="3"
                             placeholder="Acuerdo..."
-                            
-            
                             required
                             maxLength={100}
+                            value={acuerdo}
+                            onChange={e => setAcuerdo(e.target.value)}
                         />
                     </div>
 

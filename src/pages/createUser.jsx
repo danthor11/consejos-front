@@ -3,7 +3,7 @@ import React , {useState}from "react";
 import { CreateUserSuccessfullyMessage } from "../components/UserSuccessfully";
 import { MessageError } from "../components/messageError";
 import { createNewUser } from "../services/login-services";
-
+import { Link } from "react-router-dom";
 
 export const CreateUser = () => {
 
@@ -49,7 +49,7 @@ export const CreateUser = () => {
            
            {isUserCreated
                ? <CreateUserSuccessfullyMessage/>
-               : (<div className="flex h-auto my-5 flex-col pt-6 px-4 sm:w-6/12 my-4 mx-auto">    
+               : (<div className="flex h-auto my-5 flex-col pt-6 px-4 sm:w-6/12  mx-auto">    
                <img 
                    src="src/assets/logo.png" 
                    alt="logo-uneg" 
@@ -67,6 +67,7 @@ export const CreateUser = () => {
                 >
                   Crear nuevo usuario
                </h2>
+               
                <div className="bg-slate-100 rounded-lg shadow-lg ">
                    <form className="p-8 " onSubmit={handleSubmit}>
                        <div className="mb-6">
@@ -127,6 +128,19 @@ export const CreateUser = () => {
                            Crear Usuario
                         </button>
                    </form>
+                   <div className="mb-6 text-center">
+                        <p>
+                            ¿Ya estas registrado? 
+                            <span className="mx-2">
+                                <Link to="/login" className="text-blue-600 underline">
+                                    Inicia sesion aquí
+                                </Link>
+                                .
+                            </span>
+                            
+                        </p>
+                        
+                    </div>
                </div>
           </div>)
            }

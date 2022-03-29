@@ -3,6 +3,7 @@ import react , {useState, useEffect}from "react";
 import { addInstruction, getPuntos } from "../services/consejo-service";
 import {SuccessfullyMessage} from "./succesfullyMessage"
 import {MessageError} from "./messageError"
+import { ButtonBack } from "./buttonBack";
 
 
 export const AddInstruccion = () => {
@@ -63,7 +64,7 @@ export const AddInstruccion = () => {
     }
 
     return(
-        <div className="min-h-screen">
+        <div className="min-h-screen w-4/5 mx-auto flex flex-col">
                 <h2 className="
                     text-slate-200  
                     text-5xl 
@@ -76,7 +77,10 @@ export const AddInstruccion = () => {
                 >
                     Añadir 
                 </h2>
-                <form className="p-8 " onSubmit={handleSubmit}>
+
+                <ButtonBack url={"/instrucciones"} custom={"my-2 self-end"}/>
+
+                <form className="p-8 bg-white bg-opacity-50 rounded-md" onSubmit={handleSubmit}>
                     <div className="mb-6">
                         <label htmlFor="punto" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                             Punto a tratar:

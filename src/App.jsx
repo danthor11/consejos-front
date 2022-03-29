@@ -14,6 +14,9 @@ import { SearchPunto } from './components/searchPunto'
 import {Consejos} from "./pages/Consejos"
 import { MainPage } from './pages'
 import ConsejerosPage from './pages/Consejeros'
+import { NotFound } from './pages/notfound'
+import { PuntosPage } from './pages/puntos'
+import { InstruccionesPage } from './pages/instrucciones'
 
 
 function App() {
@@ -26,12 +29,14 @@ function App() {
                     <Route path="/" element={<MainPage/>}/>
                     {isLogged && (
                         <>
-                            <Route path='/create-consejo' element={<CreateNewConsejo/>}  />
                             <Route path="/consejos" element={<Consejos/>}/>
-                           
-                            <Route path="/add-consejero" element={<Consejero/>}/>
+                            <Route path='/create-consejo' element={<CreateNewConsejo/>}  />
                             <Route path='/consejero' element={<ConsejerosPage/>}/>
-                            <Route path="/add-instruccion" element={<AddInstruccion/>} />
+                            <Route path="/add-consejero" element={<Consejero/>}/>
+                            <Route path='/punto' element={<PuntosPage/>}/>
+                            <Route path='/add-punto' element={<Punto/>}/>
+                            <Route path="/instrucciones" element={<InstruccionesPage/>} />
+                            <Route path="/add-instrucciones" element={<AddInstruccion/>} />
                             <Route path='/search' element={<SearchPunto/>}/>
                         </>
                     )}
@@ -42,7 +47,7 @@ function App() {
                         </>
                     )}
                     
-                    <Route path="*" element={<div>Pagina no existe</div>}/>
+                    <Route path="*" element={<NotFound/>}/>
                     
                 </Routes>
 

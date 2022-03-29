@@ -6,8 +6,8 @@ export const Logout = () =>{
 
     const handleClick = () =>{
         logout()
-        location.reload()
         navigate("/login")
+        location.reload()  
     }
     
     return (

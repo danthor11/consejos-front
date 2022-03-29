@@ -25,25 +25,38 @@ export const NavBar = (props) => {
                             
                             <Link
                                 to={"/consejos"}
-                                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-base font-medium"
                             >
                                 Consejos
                             </Link>
 
-                            <Link
-                                to="/search"
-                                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                            >
-                                Buscar
-                            </Link>
 
                             <Link
                                 to="/consejero"
-                                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-base font-medium"
                             >
                                 Consejero
                             </Link>
+                            <Link
+                              to="/punto"
+                              className="text-gray-300 hover:bg-gray-700 hover:text-white  px-3 py-2 rounded-md text-base font-medium"
+                            >
+                              Punto
+                            </Link>
 
+                            <Link
+                              to="/instrucciones"
+                              className="text-gray-300 hover:bg-gray-700 hover:text-white  px-3 py-2 rounded-md text-base font-medium"
+                            >
+                              Instrucciones
+                            </Link>
+
+                            <Link
+                                to="/search"
+                                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-base font-medium"
+                            >
+                                Buscar
+                            </Link>
                         </div>
                     </div>
                     </div>
@@ -122,18 +135,33 @@ export const NavBar = (props) => {
                   Consejos
                 </Link>
 
-                <Link
-                  to="/search"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                >
-                  Buscar
-                </Link>
 
                 <Link
                   to="/consejero"
                   className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                 >
                   Consejero
+                </Link>
+
+                <Link
+                  to="/punto"
+                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                >
+                  Punto
+                </Link>
+
+                <Link
+                  to="/instrucciones"
+                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                >
+                  Instrucciones
+                </Link>
+                
+                <Link
+                  to="/search"
+                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                >
+                  Buscar
                 </Link>
               </div>
             </div>
