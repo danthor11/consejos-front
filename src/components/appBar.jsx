@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Transition } from "@headlessui/react";
 import { Logout } from "./logout";
 import { Link } from "react-router-dom";
+import imageLogo from "../assets/logo.png"
 
 export const NavBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,7 +16,7 @@ export const NavBar = (props) => {
                         <Link to="/">
                             <img
                             className="h-8 w-8 bg-slate-50 rounded-md"
-                            src="/src/assets/logo.png"
+                            src={imageLogo}
                             alt="Workflow"
                             />
                         </Link>

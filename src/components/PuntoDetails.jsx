@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react"
 import { getConsejoById } from "../services/consejo-service";
 
+
 export const PuntoDetail = (props) => {
     const [consejo, setConsejo] = useState(null);
     
@@ -13,7 +14,7 @@ export const PuntoDetail = (props) => {
     }, []);
 
     return (
-        <div className="flex flex-col p-6 content-start mx-auto bg-slate-50 gap-3  my-4 w-full rounded-md text-slate-900">
+        <div className="flex flex-col p-6 content-start mx-auto bg-slate-50 gap-3  my-4 w-11/12 rounded-md text-slate-900">
             <h2 className="text-4xl my-2 text-center">{props.enunciate}</h2>
             {consejo 
                 ? consejo.map(c => <div className="flex flex-col py-4 border-solid  border-y-2 border-slate-800">

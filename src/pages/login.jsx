@@ -2,7 +2,7 @@ import React,{useState} from "react"
 import { login,saveToken } from "../services/login-services";
 import { MessageError } from "../components/messageError";
 import { Link,useNavigate } from "react-router-dom";
-
+import imageLogo from "../assets/logo.png"
 
 export const Login = (props) => {
     const navigate = useNavigate()
@@ -41,7 +41,7 @@ export const Login = (props) => {
         <div >
            <div className="flex h-auto flex-col pt-6 px-4 my-4 mx-auto sm:w-6/12">    
                 <img 
-                    src="src/assets/logo.png" 
+                    src={imageLogo} 
                     alt="logo-uneg" 
                     className="w-40 mx-auto bg-stone-200 p-2 rounded-md"
                 />
@@ -60,7 +60,7 @@ export const Login = (props) => {
                 <div className="bg-slate-100 rounded-lg shadow-lg ">
                     <form className="p-8 " onSubmit={handleSubmit}>
                         <div >
-                            <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                            <label htmlFor="email" className="block my-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                                 Email
                             </label>
                             <input 
@@ -73,8 +73,8 @@ export const Login = (props) => {
                                 required
                             />
                         </div>
-                        <div className="mb-6">
-                            <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                        <div >
+                            <label htmlFor="password" className="block my-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                                 Contraseña
                             </label>
                             <input 
@@ -92,7 +92,7 @@ export const Login = (props) => {
                             : ""
 
                         }
-                        <div className="mb-6 text-center">
+                        <div className="my-4 text-center">
                             <p>
                                 ¿No estas registrado? 
                                 <span className="mx-2">

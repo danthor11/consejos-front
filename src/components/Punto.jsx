@@ -1,62 +1,26 @@
-import React , {useState,useEffect} from "react"
+import React  from "react"
 import Select from "react-select"
-import { addNewPunto, getConsejero, getConsejos } from "../services/consejo-service"
-import { getUserById } from "../services/login-services"
+import { addNewPunto} from "../services/consejo-service"
 import { ButtonBack } from "./buttonBack"
+import { useConsejo } from "../services/hook/useConsejos"
+import { useForm } from "../services/hook/useForm"
 
-const req=[
-    getConsejos(),
-    getConsejero()
-]
+
 
 export const Punto = () =>{
 
-    const [allConsejos, setAllConsejos] = useState(null);
-    const [allConsejeros, setAllConsejeros] = useState(null);
+    const {allConsejosOptions, allConsejeros} = useConsejo()
     
-    const [consejo, setConsejo] = useState(null);
-    const [consejero, setConsejero] = useState("");
+    const {
+        consejo, setConsejo,
+        consejero, setConsejero,
+        description, setDescription,
+        punto, setPunto,
+        decision, setDecision,
+        acuerdo, setAcuerdo
+    } = useForm()
 
-    const [description, setDescription] = useState("")
 
-    const [punto, setPunto] = useState("");
-    const [decision, setDecision] = useState("");
-    const [acuerdo, setAcuerdo] = useState("");
-
-
-    
-    useEffect( async () => {
-        try {
-            const [res1,res2] = await Promise.all(req)
-           
-            const data = [await res1.clone().json(),await res2.clone().json()]
-            
-            if(!res1.ok && !res2.ok) throw {status:res.status}
-            
-            const options = data[0].map(consejo => ({
-                label:`${consejo.name} - ${consejo.type} `, 
-                value: consejo.id
-            }))
-
-            try {
-                const resConsejos = await Promise.all(data[1].map(async consejero => await getUserById(consejero.user)))
-                const dataConsejos = await Promise.all(resConsejos.map(el=> el.clone().json()))
-                console.log(dataConsejos,resConsejos)
-                
-                setAllConsejos(options)
-                setAllConsejeros(dataConsejos)
-            } catch (err) {
-                console.log({err})
-            }
-
-        } catch (err) {
-            console.log({err})
-        }
-        
-        return () =>{
-            
-        }
-    },[])
 
     const handleChange = value => {
         setConsejo(value)
@@ -67,7 +31,6 @@ export const Punto = () =>{
         e.preventDefault()
         addNewPunto({consejo,consejero,description,punto,decision,acuerdo})
             .then(res =>{
-                console.log(res) 
                 return res.json()})
             .then(data => console.log(data))
             .catch(err => console.log({err}))
@@ -99,9 +62,10 @@ export const Punto = () =>{
                             Consejo
                         </label>
 
-                        { allConsejos
+                        {allConsejosOptions
+
                             ?   <Select
-                                    options={allConsejos}
+                                    options={allConsejosOptions}
                                     onChange={handleChange}
                                     isMulti
                                 />
@@ -126,7 +90,7 @@ export const Punto = () =>{
                             ?  (
                                 allConsejeros.map(c => <option value={c.id} key={c.id}>{c.user_name}</option>)
                             )
-                            : <option value="">Cargando option</option>
+                            : <option value="" className="w-full">Cargando option</option>
                             }
                            
                         </select>

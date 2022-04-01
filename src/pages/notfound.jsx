@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { isUserLogged } from "../services/login-services"
 import  Error  from "../assets/404.png"
 
+
 export const NotFound = () => {
     const isLogged = isUserLogged()
     return (

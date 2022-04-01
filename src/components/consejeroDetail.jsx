@@ -4,7 +4,7 @@ import { Consejo } from "./Consejos";
 import { UserDetail } from "./userDetail";
 
 export const ConsejeroDetail = (props) =>{
-    console.log(props,"consejero")
+    
     const [consejos, setConsejos] = useState(null);
 
     useEffect(() => {

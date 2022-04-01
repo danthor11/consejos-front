@@ -4,6 +4,7 @@ import { CreateUserSuccessfullyMessage } from "../components/UserSuccessfully";
 import { MessageError } from "../components/messageError";
 import { createNewUser } from "../services/login-services";
 import { Link } from "react-router-dom";
+import imageLogo from "../assets/logo.png"
 
 export const CreateUser = () => {
 
@@ -51,7 +52,7 @@ export const CreateUser = () => {
                ? <CreateUserSuccessfullyMessage/>
                : (<div className="flex h-auto my-5 flex-col pt-6 px-4 sm:w-6/12  mx-auto">    
                <img 
-                   src="src/assets/logo.png" 
+                   src={imageLogo}
                    alt="logo-uneg" 
                    className="w-40 mx-auto bg-stone-200 p-2 rounded-md"
                />
@@ -68,10 +69,10 @@ export const CreateUser = () => {
                   Crear nuevo usuario
                </h2>
                
-               <div className="bg-slate-100 rounded-lg shadow-lg ">
-                   <form className="p-8 " onSubmit={handleSubmit}>
-                       <div className="mb-6">
-                           <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+               <div className="bg-slate-100 rounded-lg shadow-lg py-6">
+                   <form className="px-8" onSubmit={handleSubmit}>
+                       <div className="">
+                           <label htmlFor="email" className="block my-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                                Email
                            </label>
                            <input 
@@ -85,8 +86,8 @@ export const CreateUser = () => {
                            />
                        </div>
 
-                       <div className="mb-6">
-                           <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                       <div className="">
+                           <label htmlFor="password" className="block my-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                                Nombre de usuario
                            </label>
                            <input 
@@ -100,8 +101,8 @@ export const CreateUser = () => {
                            />
                        </div>
 
-                       <div className="mb-6">
-                           <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                       <div className="">
+                           <label htmlFor="password" className="block my-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                                Contraseña
                            </label>
                            <input 
@@ -122,13 +123,13 @@ export const CreateUser = () => {
                        
                        <button type="submit" 
                            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 
-                           focus:ring-blue-300 font-medium rounded-lg text-sm w-full  px-5 py-2.5 
+                           focus:ring-blue-300 font-medium rounded-lg text-sm w-full  px-5 py-2.5 my-6
                            text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                        >
                            Crear Usuario
                         </button>
                    </form>
-                   <div className="mb-6 text-center">
+                   <div className="mb-2 text-center">
                         <p>
                             ¿Ya estas registrado? 
                             <span className="mx-2">

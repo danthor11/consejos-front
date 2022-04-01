@@ -48,7 +48,8 @@ export const CreateNewConsejo = () => {
                     py-4 
                     mx-4
                     font-semibold
-                    shadow-sm
+                    border-b-slate-300
+                    border-b-2
                     " 
                     >
                     Crear un consejo

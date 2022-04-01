@@ -1,25 +1,15 @@
 
 import React, { useEffect, useState } from "react"
 import { getPuntosById } from "../services/consejo-service";
-import { Rechazada ,Diferida, PuntoDetail} from "./PuntoDetails";
+import {usePuntos} from "../services/hook/usePuntos"
+import { PuntoDetail} from "./PuntoDetails";
 
 
 export const IntruccionesDetail = (props) => {
-    const [punto, setPunto] = useState(null);
+    const { punto } = usePuntos(props)
     
-    useEffect(async () => {
-        try {
-            const res = await getPuntosById(props.id_punto)
-            const data = await res.json()
 
-            if(!res.ok) throw{status: res.status}
-            console.log(data)
-            setPunto(data)
-        } catch (err) {
-            console.log(err)
-        }
-    }, []);
-
+    
     return (
         <div className="flex flex-col  content-center bg-slate-50  mx-auto w-4/5 rounded-md text-slate-900">
 
@@ -30,7 +20,7 @@ export const IntruccionesDetail = (props) => {
             <hr className="text-stone-600"/>
             {punto
                 ? <PuntoDetail {...punto}/>
-                :"no"
+                :   "no"
 
             }
         </div>

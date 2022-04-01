@@ -1,38 +1,25 @@
 
-import react , {useState, useEffect}from "react";
-import { addInstruction, getPuntos } from "../services/consejo-service";
+import react , {useState}from "react";
+import { addInstruction} from "../services/consejo-service";
 import {SuccessfullyMessage} from "./succesfullyMessage"
 import {MessageError} from "./messageError"
 import { ButtonBack } from "./buttonBack";
-
+import { useForm } from "../services/hook/useForm";
+import { usePuntos } from "../services/hook/usePuntos";
 
 export const AddInstruccion = () => {
 
-    const [punto, setPunto] = useState(null);
-    const [instruccion, setInstruccion] = useState("");
-    const [puntoSeleccionado, setPuntoSeleccionado] = useState("");
+   
+    const {
+        instruccion,setInstruccion,
+        puntoSeleccionado,setPuntoSeleccionado
+    } = useForm()
+    const {puntoList} = usePuntos()
+
     const [error, setError] = useState(null);
     const [successfully, setSuccessfully] = useState(false);
+    
 
-    useEffect(() => {
-            getPuntos()
-            .then(data => {
-                console.log(data)
-                if(!data.ok) throw {code:data.status, message: data.statusText||"Ocurrio un error"}
-                return data.json()
-            })
-            .then(json =>{
-                console.log(json)
-                setPunto(json)
-            })
-            .catch(err=>{
-                console.log(err)
-                // setError(err)
-                // setTimeout(()=>{
-                //     setError(null)
-                // },3000)
-            })
-    }, []);
 
 
     const handleSubmit = (e) => {
@@ -81,8 +68,8 @@ export const AddInstruccion = () => {
                 <ButtonBack url={"/instrucciones"} custom={"my-2 self-end"}/>
 
                 <form className="p-8 bg-white bg-opacity-50 rounded-md" onSubmit={handleSubmit}>
-                    <div className="mb-6">
-                        <label htmlFor="punto" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                    <div >
+                        <label htmlFor="punto" className="block my-3 text-sm font-medium text-gray-900 dark:text-gray-300">
                             Punto a tratar:
                         </label>
                         <select  
@@ -93,21 +80,21 @@ export const AddInstruccion = () => {
                             value={puntoSeleccionado}
                         >
                             <option value="">Elegir una opcion</option>
-                            {punto
-                                ?(punto.map(p => <Option key={p.id} value={p.id} >{p.enunciate}</Option>))
+                            {puntoList
+                                ?(puntoList.map(p => <Option key={p.id} value={p.id} >{p.enunciate}</Option>))
                                 : ""
                             }
                         </select>
                     </div>
 
-                    <div className="mb-6">
-                        <label htmlFor="intruccion" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                    <div >
+                        <label htmlFor="intruccion" className="block my-3 text-sm font-medium text-gray-900 dark:text-gray-300">
                             Instruccion:
                         </label>
                     </div>
 
                         <textarea
-                            class="
+                            className="
                                 form-control
                                 block
                                 w-full

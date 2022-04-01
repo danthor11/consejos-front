@@ -22,10 +22,6 @@ export const MainPage = () => {
                         Iniciar Sesión
                     </Link>)  
                 }
-
-          
-                
-
             </div>
         </div>
     )

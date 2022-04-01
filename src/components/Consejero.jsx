@@ -1,47 +1,27 @@
-import React, { useState , useEffect} from "react";
+import React, { useState } from "react";
 import Select from "react-select";
-import { createConsejero, getAllUsers, getConsejos } from "../services/consejo-service";
+import { createConsejero } from "../services/consejo-service";
 import { ButtonBack } from "./buttonBack";
 import { MessageError } from "./messageError";
 import { SuccessfullyMessage } from "./succesfullyMessage";
+import { useConsejo } from "../services/hook/useConsejos";
+import { useForm } from "../services/hook/useForm";
 
 
 export const Consejero = () => {
-    const [user, setUser] = useState("");
-    const [consejo, setConsejo] = useState(null);
-    const [ocupation, setOcupation] = useState("");
-    const [allUsers, setAllUsers] = useState(null);
-    const [allConsejos, setAllConsejos] = useState(null);
+  
+    const {
+        user, setUser,
+        consejo, setConsejo,
+        ocupation,setOcupation
+    } = useForm()
+    const {allUsers,allConsejosOptions} = useConsejo()
+    
     const [successfully, setSuccessfully] = useState(false);
     const [error, setError] = useState(null);
 
-    useEffect(()=>{
-        
-        Promise.all([
-            getConsejos(),
-            getAllUsers()
-        ])
-            .then(data => {
-                console.log(data)
-                return Promise.all(data.map(d => d.json()))
-            })
-            .then(json => {
-                
-                const options = json[0].map(consejo => ({
-                    label:`${consejo.name} - ${consejo.type} `, 
-                    value: consejo.id
-                }))
-                
 
-
-                setAllConsejos(options)
-                setAllUsers(json[1])
-            })
-            .catch(err=>{
-                console.log({err})
-            })
-    },[])
-
+    
 
     const handleSubmit = (e)=>{
         e.preventDefault()
@@ -52,7 +32,6 @@ export const Consejero = () => {
             position:ocupation
         }
 
-        console.log(data)
         createConsejero(data)
             .then(data => {
                 console.log(data)
@@ -145,13 +124,19 @@ export const Consejero = () => {
                             Consejo:
                         </label>
 
-                        <Select
-                            className=" text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            options={allConsejos}
-                            onChange={handleChange}
-                            isMulti
-                            value={consejo}
-                        />
+
+                        {allConsejosOptions
+                            ? <Select
+                                    className=" text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    options={allConsejosOptions}
+                                    onChange={handleChange}
+                                    isMulti
+                                    value={consejo}
+                                    placeholder="Elija un consejo"
+                                />
+                            : ""
+                        }
+                        
 
                     </div>
 

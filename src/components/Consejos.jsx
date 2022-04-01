@@ -1,7 +1,6 @@
 import react from "react"
 
 export const Consejo = (props) => {
-
     return(
         <div className="
             flex flex-col p-5 border-2 border-solid  bg-slate-100 border-slate-600 rounded-md gap-3

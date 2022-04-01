@@ -3,30 +3,15 @@ import { getPuntos } from "../services/consejo-service";
 import { Link } from "react-router-dom";
 import { PuntoDetail } from "../components/PuntoDetails";
 import { Loader } from "../components/loader";
+import { usePuntos } from "../services/hook/usePuntos";
 
 export const PuntosPage = () => {
 
-
-    const [puntoList, setPuntoList] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
-
-    useEffect(async() => {
-        try {
-            setIsLoading(true)
-            const res = await getPuntos()
-            const data = await res.json()
-            
-            if(!res.ok) throw {err:res.statusText}
-            setPuntoList(data)
-        } catch (err) {
-            console.log(err)
-        }
-        finally{
-            setIsLoading(false)
-        }
-
-    }, []);
-
+    const {
+        puntoList,
+        isLoading
+    } = usePuntos()
+    
 
     return(
         <div className="w-11/12 bg-opacity-25 bg-slate-100 min-h-screen rounded-md flex flex-col p-5 mx-auto my-2 flex-wrap gap-5 ">
@@ -49,9 +34,6 @@ export const PuntosPage = () => {
                 )
                 :<Loader/>
            }
-            {
-            }
-
             
         </div>
     )

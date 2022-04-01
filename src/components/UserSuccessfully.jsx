@@ -1,5 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import check from "../assets/check.png"
 
 export const CreateUserSuccessfullyMessage = () =>{
     return(
@@ -16,7 +17,7 @@ export const CreateUserSuccessfullyMessage = () =>{
                 text-slate-700
                 "  
             >
-                <img src="src/assets/check.png" alt="check" className="w-3/5 h-auto m-auto"/>
+                <img src={check} alt="check" className="w-3/5 h-auto m-auto"/>
                 <h2 className="text-2xl">Registro de usuario exitoso</h2>
                 <p>
                     Ya puede proceder a {" "}
